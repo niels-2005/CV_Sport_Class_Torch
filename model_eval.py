@@ -1,7 +1,9 @@
-import torch
+import os
+
 import matplotlib.pyplot as plt
 import pandas as pd
-import os
+import torch
+
 
 def accuracy_fn(y_true, y_pred):
     """Calculates accuracy between truth labels and predictions.
@@ -58,7 +60,7 @@ def eval_model(
         # Scale loss and acc
         loss /= len(dataloader)
         acc /= len(dataloader)
-        
+
         df["test_loss"] = loss
         df["test_acc"] = acc
 

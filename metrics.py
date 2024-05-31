@@ -1,11 +1,12 @@
+import os
+
+import matplotlib.pyplot as plt
+import pandas as pd
 import torch
 from mlxtend.plotting import plot_confusion_matrix
+from sklearn.metrics import classification_report
 from torchmetrics import ConfusionMatrix
 from tqdm.notebook import tqdm
-import os 
-import matplotlib.pyplot as plt 
-import pandas as pd 
-from sklearn.metrics import classification_report
 
 
 def get_y_pred_multilabel(model, test_loader, device):

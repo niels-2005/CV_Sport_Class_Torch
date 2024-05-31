@@ -31,7 +31,10 @@ def start_pipeline():
         plot_images_from_folder(folder=CFG.test_folder, n_images=4, images_per_row=4)
 
         plot_images_from_dataloader(
-            dataloader=CFG.train_dataloader, class_names=CFG.class_names, n_images=4, images_per_row=4
+            dataloader=CFG.train_dataloader,
+            class_names=CFG.class_names,
+            n_images=4,
+            images_per_row=4,
         )
 
     results, df = train_model(

@@ -1,7 +1,7 @@
+import pandas as pd
 import torch
 from torch import nn
 from tqdm.notebook import tqdm
-import pandas as pd
 
 
 def accuracy_fn(y_true, y_pred):
@@ -22,7 +22,7 @@ def accuracy_fn(y_true, y_pred):
 def get_current_lr(optimizer):
     """Retrieve the current learning rate from optimizer."""
     for param_group in optimizer.param_groups:
-        return param_group['lr']
+        return param_group["lr"]
 
 
 def train_step(
@@ -30,7 +30,7 @@ def train_step(
     dataloader: torch.utils.data.DataLoader,
     loss_fn: torch.nn.Module,
     optimizer: torch.optim.Optimizer,
-    device: torch.device
+    device: torch.device,
 ):
     """Train step for a single epoch.
 
@@ -72,7 +72,7 @@ def val_step(
     model: torch.nn.Module,
     dataloader: torch.utils.data.DataLoader,
     loss_fn: torch.nn.Module,
-    device: torch.device
+    device: torch.device,
 ):
     """Validation step for a single epoch.
 
@@ -144,7 +144,13 @@ def train_model(
         epochs = 5
         results, df = train_model(model, train_dataloader, val_dataloader, optimizer, loss_fn, early_stopper, lr_scheduler, epochs)
     """
-    results = {"train_loss": [], "train_acc": [], "val_loss": [], "val_acc": [], "lr": []}
+    results = {
+        "train_loss": [],
+        "train_acc": [],
+        "val_loss": [],
+        "val_acc": [],
+        "lr": [],
+    }
     early_stopped_epoch = epochs
     initial_lr = get_current_lr(optimizer)
 
@@ -154,13 +160,10 @@ def train_model(
             dataloader=train_dataloader,
             loss_fn=loss_fn,
             optimizer=optimizer,
-            device=device
+            device=device,
         )
         val_loss, val_acc = val_step(
-            model=model,
-            dataloader=val_dataloader,
-            loss_fn=loss_fn,
-            device=device
+            model=model, dataloader=val_dataloader, loss_fn=loss_fn, device=device
         )
 
         current_lr = get_current_lr(optimizer)
@@ -184,7 +187,7 @@ def train_model(
 
         early_stopper(val_loss, model)
         if early_stopper.early_stop:
-            early_stopped_epoch = epoch+1
+            early_stopped_epoch = epoch + 1
             print(f"Early Stopping at Epoch: {epoch+1}")
             break
 

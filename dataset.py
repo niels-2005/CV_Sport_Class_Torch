@@ -1,7 +1,7 @@
+from sklearn.model_selection import train_test_split
 from torch.utils.data import DataLoader, Dataset
 from torchvision import transforms
 from torchvision.datasets import ImageFolder
-from sklearn.model_selection import train_test_split
 
 
 class ImageDataset(Dataset):
@@ -23,17 +23,18 @@ class ImageDataset(Dataset):
         val_indices (list): List of indices for the validation subset.
     """
 
-    def __init__(self, data_dir, transform=None, subset='all', val_split=0.2, seed=42):
+    def __init__(self, data_dir, transform=None, subset="all", val_split=0.2, seed=42):
         self.data = ImageFolder(data_dir, transform=transform)
         self.filepaths = [s[0] for s in self.data.samples]
         self.labels = [s[1] for s in self.data.samples]
         self.indices = list(range(len(self.data)))
         self.train_indices, self.val_indices = train_test_split(
-            self.indices, test_size=val_split, random_state=seed, stratify=self.labels)
+            self.indices, test_size=val_split, random_state=seed, stratify=self.labels
+        )
 
-        if subset == 'train':
+        if subset == "train":
             self.indices = self.train_indices
-        elif subset == 'val':
+        elif subset == "val":
             self.indices = self.val_indices
 
     def __len__(self):
