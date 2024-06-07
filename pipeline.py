@@ -47,6 +47,7 @@ def start_pipeline():
         lr_scheduler=CFG.lr_scheduler,
         epochs=CFG.epochs,
         device=CFG.device,
+        model_folder=CFG.model_folder
     )
 
     plot_loss_curves(results=results, model_folder=CFG.model_folder)
